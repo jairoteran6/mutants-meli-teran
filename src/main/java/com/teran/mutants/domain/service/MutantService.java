@@ -8,10 +8,10 @@ import reactor.core.publisher.Mono;
 public class MutantService implements MutantServiceI {
 
     @Override
-    public Mono<String> identificarMutante(String[] dna) {
+    public Mono<String> isMutant(String[] dna) {
 
         for(String cadena:dna){
-            System.out.println(cadena);
+            System.out.println(cadena.toString());
         }
 
         return Mono.just("lo logramos");
