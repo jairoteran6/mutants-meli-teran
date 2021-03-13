@@ -11,10 +11,11 @@ public class MutantService {
         this.mutantRepository=mutantRepository;
     }
 
-    public Mono<String> identificarMutante(String[] dna) {
+
+    public Mono<String> isMutant(String[] dna) {
 
         for(String cadena:dna){
-            System.out.println(cadena);
+            System.out.println(cadena.toString());
         }
 
         return mutantRepository.guardarSecuencia(dna);

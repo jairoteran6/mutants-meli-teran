@@ -22,7 +22,7 @@ public class MutantCtr {
 
     @GetMapping("/mutant")
     private  Mono<String> verificarMutante(){
-        return mutanteService.identificarMutante(new String[]{"123","112"});
+        return mutanteService.isMutant(new String[]{"123","112"});
     }
 
 }
