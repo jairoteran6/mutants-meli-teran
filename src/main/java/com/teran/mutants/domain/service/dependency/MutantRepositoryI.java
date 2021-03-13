@@ -2,6 +2,6 @@ package com.teran.mutants.domain.service.dependency;
 
 import reactor.core.publisher.Mono;
 
-public interface MutantServiceI {
-    Mono<String> identificarMutante(String[] dna);
+public interface MutantRepositoryI {
+    Mono<String> guardarSecuencia(String[] dna);
 }
