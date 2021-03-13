@@ -1,7 +1,7 @@
 package com.teran.mutants.application;
 
 import com.teran.mutants.domain.model.Estadistica;
-import com.teran.mutants.domain.service.dependency.MutantServiceI;
+import com.teran.mutants.domain.service.MutantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 public class MutantCtr {
 
     @Autowired
-    MutantServiceI mutanteService;
+    MutantService mutanteService;
 
     @GetMapping("/stats")
     private Mono<Estadistica> getStats() {

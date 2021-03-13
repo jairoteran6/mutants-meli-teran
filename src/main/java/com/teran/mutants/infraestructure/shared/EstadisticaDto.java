@@ -1,4 +1,4 @@
-package com.teran.mutants.infraestructura.shared;
+package com.teran.mutants.infraestructure.shared;
 
 public class EstadisticaDto {
 
