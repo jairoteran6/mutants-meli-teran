@@ -1,19 +1,22 @@
 package com.teran.mutants.domain.service;
 
-import com.teran.mutants.domain.service.dependency.MutantServiceI;
-import org.springframework.stereotype.Service;
+import com.teran.mutants.domain.service.dependency.MutantRepositoryI;
 import reactor.core.publisher.Mono;
 
-@Service
-public class MutantService implements MutantServiceI {
+public class MutantService {
 
-    @Override
+    private MutantRepositoryI mutantRepository;
+
+    public MutantService( MutantRepositoryI mutantRepository) {
+        this.mutantRepository=mutantRepository;
+    }
+
     public Mono<String> identificarMutante(String[] dna) {
 
         for(String cadena:dna){
             System.out.println(cadena);
         }
 
-        return Mono.just("lo logramos");
+        return mutantRepository.guardarSecuencia(dna);
     }
 }

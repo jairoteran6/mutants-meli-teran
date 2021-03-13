@@ -27,6 +27,7 @@ dependencies {
 			'com.amazonaws.serverless:aws-serverless-java-container-springboot2:[1.4,)',
 			'io.symphonia:lambda-logging:1.0.1'
 	)*/
+	//compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.5'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 }
