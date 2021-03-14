@@ -1,6 +1,8 @@
-package com.teran.mutants.infraestructure.shared;
+package com.teran.mutants.infraestructure.shared.dto;
 
-public class SecuenciaDTO {
+import java.io.Serializable;
+
+public class SequenceDTO implements Serializable {
 
     private String[] dna;
 

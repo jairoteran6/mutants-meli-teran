@@ -1,6 +1,8 @@
 package com.teran.mutants.domain.model;
 
-public enum HumanClasification {
+import java.io.Serializable;
+
+public enum HumanClasification implements Serializable {
     NORMAL,
     MUTANT
 }

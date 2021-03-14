@@ -1,5 +1,7 @@
 package com.teran.mutants.domain.service;
 
+import com.teran.mutants.domain.model.DnaSequence;
+import com.teran.mutants.domain.model.HumanClasification;
 import com.teran.mutants.domain.service.dependency.MutantRepositoryI;
 import reactor.core.publisher.Mono;
 
@@ -12,12 +14,12 @@ public class MutantService {
     }
 
 
-    public Mono<String> isMutant(String[] dna) {
+    public Mono<DnaSequence> isMutant(String[] dna) {
+            return DnaSequence.create(dna, HumanClasification.NORMAL)
+                    .onErrorResume(error-> {
+                        System.out.println("Error"+error);
+                        return Mono.error(error);
+                    });
 
-        for(String cadena:dna){
-            System.out.println(cadena.toString());
-        }
-
-        return mutantRepository.guardarSecuencia(dna);
     }
 }

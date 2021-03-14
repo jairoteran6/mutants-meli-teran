@@ -15,10 +15,6 @@ public class DnaSequence implements Serializable {
 
     public DnaSequence(){}
 
-    private DnaSequence(String[] dna) {
-        this.dna = dna;
-    }
-
     private DnaSequence(String[] dna, HumanClasification humanClasification) {
         this.dna = dna;
         this.humanClasification = humanClasification;
@@ -27,21 +23,13 @@ public class DnaSequence implements Serializable {
     public static Mono<DnaSequence> create(String[] dna, HumanClasification humanClasification){
         DnaSequence dnaSequence = new DnaSequence(dna,humanClasification);
         return dnaSequence.validate().then(Mono.just(dnaSequence));
-
     }
-
 
     public Mono<Void> validate(){
-        return Validate.nullEntityValidate(dna,"dna");
-    }
-
-    public void validateCaractersInSequence(){
-        String regex = "[^ATCG]";
-        Pattern patron = Pattern.compile(regex);
-        Mono.just(dna).filter(x -> Arrays.stream(x).anyMatch(b -> patron.matcher(b).find()))
-                .switchIfEmpty(Mono.error(ExceptionFactory.VALUE_NOT_VALID.get(dna)))
+        return Validate.nullEntityValidate(dna,"dna")
+                .switchIfEmpty(Validate.validateCaractersInSequence(dna,"dna"))
+                .then(Validate.validateEstructureInSequence(dna,"dna"))
                 .then(Mono.empty());
-
     }
 
     public Mono<Void> validateToSave(){
@@ -50,8 +38,11 @@ public class DnaSequence implements Serializable {
 
     }
 
+    public String[] getDna() {
+        return dna;
+    }
 
-
-
-
+    public HumanClasification getHumanClasification() {
+        return humanClasification;
+    }
 }

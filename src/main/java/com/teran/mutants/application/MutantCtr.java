@@ -1,9 +1,13 @@
 package com.teran.mutants.application;
 
+import com.teran.mutants.domain.model.DnaSequence;
 import com.teran.mutants.domain.model.Estadistica;
 import com.teran.mutants.domain.service.MutantService;
+import com.teran.mutants.infraestructure.shared.dto.SequenceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
 
@@ -14,15 +18,15 @@ public class MutantCtr {
     MutantService mutanteService;
 
     @GetMapping("/stats")
-    private Mono<Estadistica> getStats() {
+    public Mono<Estadistica> getStats() {
         Estadistica estadistica = new Estadistica(1,2,0.2);
 
         return Mono.just(estadistica);
     }
 
-    @GetMapping("/mutant")
-    private  Mono<String> verificarMutante(){
-        return mutanteService.isMutant(new String[]{"123","112"});
+    @PostMapping(path ="/mutant", consumes = "application/json")
+    public  Mono<DnaSequence> verificarMutante(@RequestBody SequenceDTO sequenceDTO){
+        return mutanteService.isMutant(sequenceDTO.getDna());
     }
 
 }
