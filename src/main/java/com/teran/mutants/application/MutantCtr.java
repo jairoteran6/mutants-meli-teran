@@ -2,6 +2,7 @@ package com.teran.mutants.application;
 
 import com.teran.mutants.domain.model.DnaSequence;
 import com.teran.mutants.domain.model.Estadistica;
+import com.teran.mutants.domain.model.HumanClasification;
 import com.teran.mutants.domain.service.MutantService;
 import com.teran.mutants.infraestructure.shared.dto.SequenceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class MutantCtr {
     }
 
     @PostMapping(path ="/mutant", consumes = "application/json")
-    public  Mono<DnaSequence> verificarMutante(@RequestBody SequenceDTO sequenceDTO){
+    public  Mono<HumanClasification> verificarMutante(@RequestBody SequenceDTO sequenceDTO){
         return mutanteService.isMutant(sequenceDTO.getDna());
     }
 
