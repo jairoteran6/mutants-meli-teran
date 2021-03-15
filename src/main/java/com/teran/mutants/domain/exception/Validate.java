@@ -12,6 +12,8 @@ public class Validate {
     //VALIDACIONES ESPECIFICAS EN EL MODELO O SERVICIO//
 
     private static String regexExcluding = "[^ATCG]";
+    private static String regexIncluding = "[ATCG]";
+
     private static Pattern patronExcluding = Pattern.compile(regexExcluding);
 
     public static Mono<Void> nullOrEmptyValidate(String value, String field) {
@@ -41,6 +43,8 @@ public class Validate {
                 .then(Mono.empty());
 
     }
+
+
 
 
 }
