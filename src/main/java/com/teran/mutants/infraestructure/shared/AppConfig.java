@@ -2,9 +2,11 @@ package com.teran.mutants.infraestructure.shared;
 
 
 import com.teran.mutants.domain.service.MutantService;
+import org.modelmapper.ModelMapper;
+import com.teran.mutants.infraestructure.persistence.DnaSequenceRepository;
 
-import com.teran.mutants.infraestructure.persistence.MutantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,16 +19,15 @@ import org.springframework.context.annotation.Configuration;
  * framework
  */
 @Configuration
-public class AppContext {
-
+public class AppConfig {
 
     @Autowired
-    MutantRepository mutantRepository;
+    DnaSequenceRepository mutantRepository;
 
     @Bean
-    MutantService getMutantService()
-    {
+    MutantService getMutantService() {
         return new MutantService(this.mutantRepository);
     }
+
 
 }
