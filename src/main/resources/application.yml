@@ -14,5 +14,3 @@ spring:
       uri: ${MONGODBURI}
       database: ${MONGODBNAME}
 
-# MONGODBURI=mongodb://user-mongo-meli:challengemeli2021@clusterdllotest-shard-00-00.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-01.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-02.ekpm1.mongodb.net:27017/mutant?ssl=true&nbChannelsPerNode=1&keepAlive=false&authSource=admin
-# MONGODBNAME=test
