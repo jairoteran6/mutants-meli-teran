@@ -4,7 +4,7 @@ import com.teran.mutants.domain.model.DnaSequence;
 import reactor.core.publisher.Mono;
 
 
-public interface DnaSequenceRepositoryI {
+public interface DnaSequenceRepository {
     Mono<DnaSequence> guardarSecuencia(DnaSequence dnaSequence);
-    Mono<DnaSequence> findDnaSequence(DnaSequence dnaSequence);
+    Mono<DnaSequence> getDnaSequenceStats();
 }

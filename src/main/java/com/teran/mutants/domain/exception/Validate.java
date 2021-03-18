@@ -12,7 +12,7 @@ public class Validate {
     //VALIDACIONES ESPECIFICAS EN EL MODELO O SERVICIO//
 
     private static String regexExcluding = "[^ATCG]";
-    private static String regexIncluding = "[ATCG]";
+
 
     private static Pattern patronExcluding = Pattern.compile(regexExcluding);
 

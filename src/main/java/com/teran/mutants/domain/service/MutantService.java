@@ -4,15 +4,16 @@ package com.teran.mutants.domain.service;
 import com.teran.mutants.domain.exception.Validate;
 import com.teran.mutants.domain.model.DnaSequence;
 import com.teran.mutants.domain.model.HumanClasification;
-import com.teran.mutants.domain.service.dependency.DnaSequenceRepositoryI;
+import com.teran.mutants.infraestructure.persistence.DnaSequenceReactiveRepository;
 import reactor.core.publisher.Mono;
 
 
 public class MutantService {
 
-    private DnaSequenceRepositoryI mutantRepository;
+    //private DnaSequenceReactiveRepository mutantRepository;
+    private final DnaSequenceReactiveRepository mutantRepository;
 
-    public MutantService(DnaSequenceRepositoryI mutantRepository) {
+    public MutantService(DnaSequenceReactiveRepository mutantRepository) {
         this.mutantRepository = mutantRepository;
     }
 
@@ -35,7 +36,7 @@ public class MutantService {
                             return mutantRepository.guardarSecuencia(dnaSequence);
                         }
                 ))
-                .onErrorResume(error-> {
+                .onErrorResume(error -> {
                     //LOG.error((Exception) error);
                     System.out.println("Error");
                     return Mono.error(error);

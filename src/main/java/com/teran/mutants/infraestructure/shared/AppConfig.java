@@ -2,13 +2,12 @@ package com.teran.mutants.infraestructure.shared;
 
 
 import com.teran.mutants.domain.service.MutantService;
-import org.modelmapper.ModelMapper;
-import com.teran.mutants.infraestructure.persistence.DnaSequenceRepository;
 
+import com.teran.mutants.infraestructure.persistence.DnaSequenceReactiveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 
 /**
  * @Configuration: Util para poder inyectar un bean que no es parte de nuestro código, por ejemplo librerias
@@ -21,8 +20,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Autowired
-    DnaSequenceRepository mutantRepository;
+    @Autowired(required=true)
+    DnaSequenceReactiveRepository mutantRepository;
 
     @Bean
     MutantService getMutantService() {

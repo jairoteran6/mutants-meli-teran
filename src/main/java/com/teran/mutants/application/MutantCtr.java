@@ -21,27 +21,28 @@ public class MutantCtr {
 
     @GetMapping("/stats")
     public Mono<Estadistica> getStats() {
-        Estadistica estadistica = new Estadistica(1,2,0.2);
+        Estadistica estadistica = new Estadistica(1, 2, 0.2);
 
         return Mono.just(estadistica);
     }
 
-    @PostMapping(path ="/mutant", consumes = "application/json")
-    public  Mono<HumanClasification> verificarMutante(@RequestBody SequenceDTO sequenceDTO){
+    @PostMapping(path = "/mutant", consumes = "application/json")
+    public Mono<HumanClasification> verificarMutante(@RequestBody SequenceDTO sequenceDTO) {
         return mutanteService.isMutant(sequenceDTO.getDna())
-                .flatMap(humanClasification -> DnaSequence.create(sequenceDTO.getDna(),humanClasification))
-                .map(dnaSequence->mutanteService.guardarDnaSequence(dnaSequence))
+                .flatMap(humanClasification -> DnaSequence.create(sequenceDTO.getDna(), humanClasification))
+                .map(dnaSequence -> mutanteService.guardarDnaSequence(dnaSequence))
                 .flatMap(dnaSequence -> dnaSequence)
                 .flatMap(dnaSequence -> {
-                            return HumanClasification.MUTANT.equals(dnaSequence.getHumanClasification())?
-                                    Mono.just(dnaSequence.getHumanClasification()):
-                                    Mono.error(new BusinessException("Humano",409));
+                            return HumanClasification.MUTANT.equals(dnaSequence.getHumanClasification()) ?
+                                    Mono.just(dnaSequence.getHumanClasification()) :
+                                    Mono.error(new BusinessException("Humano", 409));
                         }
-                        )
-                .onErrorResume(error-> {
+                )
+                .onErrorResume(error -> {
                     System.out.println("Error");
                     return Mono.error(error);
                 });
     }
+
 
 }
