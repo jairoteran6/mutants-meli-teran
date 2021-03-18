@@ -1,3 +1,6 @@
+server:
+  port : 8081
+
 spring:
   main:
     banner-mode: "off"
@@ -5,3 +8,9 @@ spring:
 
   application:
     name: "Mutant's Analizer"
+
+  data:
+    mongodb:
+      uri: ${MONGODBURI}
+      database: ${MONGODBNAME}
+
