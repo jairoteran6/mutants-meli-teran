@@ -7,10 +7,8 @@ import com.teran.mutants.domain.model.HumanClasification;
 import com.teran.mutants.domain.service.MutantService;
 import com.teran.mutants.infraestructure.shared.dto.SequenceDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -35,13 +33,19 @@ public class MutantCtr {
                 .flatMap(dnaSequence -> {
                             return HumanClasification.MUTANT.equals(dnaSequence.getHumanClasification()) ?
                                     Mono.just(dnaSequence.getHumanClasification()) :
-                                    Mono.error(new BusinessException("Humano", 409));
+                                    Mono.error(new BusinessException("Humano", 403));
                         }
                 )
                 .onErrorResume(error -> {
-                    System.out.println("Error");
+                    System.out.println(error.getMessage());
                     return Mono.error(error);
                 });
+    }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Humano")
+    @ExceptionHandler(BusinessException.class)
+    public void businessException() {
+
     }
 
 
