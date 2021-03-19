@@ -7,5 +7,5 @@ import reactor.core.publisher.Mono;
 public interface CustomDnaSequenceRepository {
 
     Mono<Stats> getDnaSequenceStats();
-    Mono<DnaSequence> guardarSecuencia(DnaSequence dnaSequence);
+    Mono<DnaSequence> saveSequence(DnaSequence dnaSequence);
 }

@@ -2,7 +2,7 @@ package com.teran.mutants.domain.model;
 
 import java.io.Serializable;
 
-public enum HumanClasification implements Serializable {
-    NORMAL,
+public enum Clasification implements Serializable {
+    HUMAN,
     MUTANT
 }

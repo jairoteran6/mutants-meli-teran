@@ -13,19 +13,19 @@ import java.util.regex.Pattern;
 public class DnaSequence implements Serializable {
 
     private String[] dna;
-    private HumanClasification humanClasification;
+    private Clasification clasification;
     private static String regexVerify = "(A{4}?|T{4}?|C{4}?|G{4}?)";
 
     public DnaSequence() {
     }
 
-    private DnaSequence(final String[] dna, HumanClasification humanClasification) {
+    private DnaSequence(final String[] dna, Clasification clasification) {
         this.dna = dna;
-        this.humanClasification = humanClasification;
+        this.clasification = clasification;
     }
 
-    public static Mono<DnaSequence> create(final String[] dna, HumanClasification humanClasification) {
-        DnaSequence dnaSequence = new DnaSequence(dna, humanClasification);
+    public static Mono<DnaSequence> create(final String[] dna, Clasification clasification) {
+        DnaSequence dnaSequence = new DnaSequence(dna, clasification);
         return dnaSequence.validate().then(Mono.just(dnaSequence));
     }
 
@@ -36,12 +36,12 @@ public class DnaSequence implements Serializable {
                 .then(Mono.empty());
     }
 
-    public Mono<HumanClasification> verifyHumanClasification() {
+    public Mono<Clasification> verifyHumanClasification() {
         return Flux.merge(horizontalValidate(dna),
                 verticalValidate(dna),
                 obliqueValidate(dna))
                 .reduce(Long::sum)
-                .map(x -> x >= 2L ? HumanClasification.MUTANT : HumanClasification.NORMAL);
+                .map(x -> x >= 2L ? Clasification.MUTANT : Clasification.HUMAN);
 
     }
 
@@ -67,7 +67,7 @@ public class DnaSequence implements Serializable {
 
     public Mono<Void> validateToSave() {
         return Validate.nullEntityValidate(dna, "dna").
-                switchIfEmpty(Validate.nullEntityValidate(humanClasification, "humanClasification"));
+                switchIfEmpty(Validate.nullEntityValidate(clasification, "humanClasification"));
 
     }
 
@@ -159,7 +159,7 @@ public class DnaSequence implements Serializable {
         return dna;
     }
 
-    public HumanClasification getHumanClasification() {
-        return humanClasification;
+    public Clasification getHumanClasification() {
+        return clasification;
     }
 }

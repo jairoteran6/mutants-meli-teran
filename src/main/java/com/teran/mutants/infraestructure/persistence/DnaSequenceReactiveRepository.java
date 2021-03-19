@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DnaSequenceReactiveRepository extends ReactiveMongoRepository<DnaSequenceModel, String>, CustomDnaSequenceRepository {
+
 }

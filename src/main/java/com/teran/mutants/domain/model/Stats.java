@@ -2,9 +2,12 @@ package com.teran.mutants.domain.model;
 
 public class Stats {
 
-    private long count_mutant_dna;
-    private long count_human_dna;
-    private double ratio;
+    private Long count_mutant_dna;
+    private Long count_human_dna;
+    private Double ratio;
+
+    public Stats() {
+    }
 
     public Stats(long count_mutant_dna, long count_human_dna, double ratio) {
         this.count_mutant_dna = count_mutant_dna;
@@ -12,15 +15,15 @@ public class Stats {
         this.ratio = ratio;
     }
 
-    public long getCount_mutant_dna() {
+    public Long getCount_mutant_dna() {
         return count_mutant_dna;
     }
 
-    public long getCount_human_dna() {
+    public Long getCount_human_dna() {
         return count_human_dna;
     }
 
-    public double getRatio() {
+    public Double getRatio() {
         return ratio;
     }
 }
