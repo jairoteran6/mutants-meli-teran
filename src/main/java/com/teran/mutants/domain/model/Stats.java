@@ -1,10 +1,12 @@
 package com.teran.mutants.domain.model;
 
+import reactor.core.publisher.Mono;
+
 public class Stats {
 
-    private Long count_mutant_dna;
-    private Long count_human_dna;
-    private Double ratio;
+    private long count_mutant_dna;
+    private long count_human_dna;
+    private double ratio;
 
     public Stats() {
     }
@@ -15,15 +17,22 @@ public class Stats {
         this.ratio = ratio;
     }
 
-    public Long getCount_mutant_dna() {
+    public long getCount_mutant_dna() {
         return count_mutant_dna;
     }
 
-    public Long getCount_human_dna() {
+    public long getCount_human_dna() {
         return count_human_dna;
     }
 
-    public Double getRatio() {
+    public double getRatio() {
+        if (count_mutant_dna != 0) {
+            if (count_human_dna == 0) {
+                 ratio=1;
+            } else {
+                 ratio =(count_mutant_dna*1.0 / count_human_dna);
+            }
+        }
         return ratio;
     }
 }

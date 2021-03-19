@@ -53,17 +53,6 @@ public class CustomDnaSequenceRepositoryImpl implements CustomDnaSequenceReposit
 
         return Mono.from(mongoTemplate.aggregate(aggregation, "dnasequence", StatsModel.class))
                 .map(statsModel -> mapper.map(statsModel, Stats.class))
-                .flatMap(stats -> {
-                    if (stats.getCount_mutant_dna() != 0) {
-                        if (stats.getCount_human_dna() == 0) {
-                            return Mono.just(new Stats(stats.getCount_mutant_dna(), stats.getCount_human_dna(), 1));
-                        } else {
-                            double ratio = stats.getCount_mutant_dna() / stats.getCount_human_dna();
-                            return Mono.just(new Stats(stats.getCount_mutant_dna(), stats.getCount_human_dna(), ratio));
-                        }
-                    }
-                    return Mono.just(stats);
-                })
                 .onErrorResume(error -> {
                     System.out.println(new Exception(error));
                     return Mono.error(new Exception(error));
