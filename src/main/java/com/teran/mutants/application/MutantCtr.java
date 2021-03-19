@@ -2,7 +2,7 @@ package com.teran.mutants.application;
 
 import com.teran.mutants.domain.exception.BusinessException;
 import com.teran.mutants.domain.model.DnaSequence;
-import com.teran.mutants.domain.model.Estadistica;
+import com.teran.mutants.domain.model.Stats;
 import com.teran.mutants.domain.model.HumanClasification;
 import com.teran.mutants.domain.service.MutantService;
 import com.teran.mutants.infraestructure.shared.dto.SequenceDTO;
@@ -18,10 +18,10 @@ public class MutantCtr {
     MutantService mutanteService;
 
     @GetMapping("/stats")
-    public Mono<Estadistica> getStats() {
-        Estadistica estadistica = new Estadistica(1, 2, 0.2);
+    public Mono<Stats> getStats() {
+        Stats stats = new Stats(1, 2, 0.2);
 
-        return Mono.just(estadistica);
+        return Mono.just(stats);
     }
 
     @PostMapping(path = "/mutant", consumes = "application/json")
