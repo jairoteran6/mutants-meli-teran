@@ -1,5 +1,5 @@
 server:
-  port : 8081
+  port : ${APPPORT}
 
 spring:
   main:
@@ -12,5 +12,5 @@ spring:
   data:
     mongodb:
       uri: ${MONGODBURI}
-      database: ${MONGODBNAME}
+
 

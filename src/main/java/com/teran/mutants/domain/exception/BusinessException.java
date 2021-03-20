@@ -2,21 +2,16 @@ package com.teran.mutants.domain.exception;
 
 public class BusinessException extends RuntimeException {
 
-    private int statusCode;
 
-    public BusinessException(String message, int statusCode) {
+    public BusinessException(String message) {
         super(message);
-        this.statusCode=statusCode;
     }
 
-    public BusinessException(String message, Throwable causa, int statusCode) {
+    public BusinessException(String message, Throwable causa) {
         super(message, causa);
-        this.statusCode=statusCode;
     }
 
-    public int getStatusCode(){
-        return this.statusCode;
-    }
+
 
 }
 
