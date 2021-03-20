@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class DnaSequence implements Serializable {
+public class DnaSequence extends Entity {
 
     private String[] dna;
     private Clasification clasification;
@@ -65,18 +65,13 @@ public class DnaSequence implements Serializable {
                         .flatMap(x -> x));
     }
 
-    public Mono<Void> validateToSave() {
-        return Validate.nullEntityValidate(dna, "dna").
-                switchIfEmpty(Validate.nullEntityValidate(clasification, "humanClasification"));
-
-    }
 
     private static Mono<Long> countNumberOfMatchesInSequence(final String[] dna, String regexValidate) {
         return Mono.just(Arrays.stream(dna).reduce(0L, (acumulador, a) ->
                 acumulador + Pattern.compile(regexValidate).matcher(a).results().count(), Long::sum));
     }
 
-    static String[] buildVerticalDnaSequence(final String[] dna) {
+    private static String[] buildVerticalDnaSequence(final String[] dna) {
 
         String[] verticalDna = new String[dna.length];
 
@@ -88,12 +83,12 @@ public class DnaSequence implements Serializable {
             verticalDna[row] = verticalItem.toString();
         }
 
-        System.out.println(String.format("Vertical array %s", verticalDna.toString()));
+        LOG.audit(String.format("Vertical array %s", verticalDna.toString()));
         return verticalDna;
     }
 
 
-    static String[] buildObliqueDnaSequenceFromTopLeftToBottomRight(final String[] dna) {
+    private static String[] buildObliqueDnaSequenceFromTopLeftToBottomRight(final String[] dna) {
 
         List<String> obliqueDna = new ArrayList<>();
 
@@ -119,12 +114,12 @@ public class DnaSequence implements Serializable {
             }
         }
 
-        System.out.println(String.format("Oblique array build from top to bottom %s", obliqueDna.toString()));
+        LOG.audit(String.format("Oblique array build from top to bottom %s", obliqueDna.toString()));
 
         return obliqueDna.toArray(String[]::new);
     }
 
-    static String[] buildObliqueDnaSequenceFromBottomLeftToTopRight(final String[] dna) {
+    private static String[] buildObliqueDnaSequenceFromBottomLeftToTopRight(final String[] dna) {
 
         List<String> obliqueDna = new ArrayList<>();
 
@@ -150,7 +145,7 @@ public class DnaSequence implements Serializable {
             }
         }
 
-        System.out.println(String.format("Oblique array build from bottom to top %s", obliqueDna.toString()));
+        LOG.audit(String.format("Oblique array build from bottom to top %s", obliqueDna.toString()));
 
         return obliqueDna.toArray(String[]::new);
     }

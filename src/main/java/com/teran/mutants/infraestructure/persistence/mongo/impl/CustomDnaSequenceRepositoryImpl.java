@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 
-public class CustomDnaSequenceRepositoryImpl implements CustomDnaSequenceRepository {
+public class CustomDnaSequenceRepositoryImpl extends Repository implements CustomDnaSequenceRepository {
 
     private final ReactiveMongoTemplate mongoTemplate;
 
@@ -35,7 +35,7 @@ public class CustomDnaSequenceRepositoryImpl implements CustomDnaSequenceReposit
         return Mono.from(mongoTemplate.save(new DnaSequenceModel(Arrays.stream(dnaSequence.getDna()).reduce("", String::concat), Arrays.toString(dnaSequence.getDna()), dnaSequence.getHumanClasification().toString())))
                 .map(success -> dnaSequence)
                 .onErrorResume(error -> {
-                    System.out.println("Error guardando dnaSequence");
+                    LOG.error((Exception) error);
                     return Mono.error(new Exception(error));
                 });
     }
@@ -54,7 +54,7 @@ public class CustomDnaSequenceRepositoryImpl implements CustomDnaSequenceReposit
         return Mono.from(mongoTemplate.aggregate(aggregation, "dnasequence", StatsModel.class))
                 .map(statsModel -> mapper.map(statsModel, Stats.class))
                 .onErrorResume(error -> {
-                    System.out.println(new Exception(error));
+                    LOG.error((Exception) error);
                     return Mono.error(new Exception(error));
                 });
 

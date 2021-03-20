@@ -6,12 +6,12 @@ import com.teran.mutants.domain.model.DnaSequence;
 import com.teran.mutants.domain.model.Clasification;
 import com.teran.mutants.domain.model.Stats;
 import com.teran.mutants.infraestructure.persistence.DnaSequenceReactiveRepository;
+
 import reactor.core.publisher.Mono;
 
 
-public class MutantService {
+public class MutantService extends Service{
 
-    //private DnaSequenceReactiveRepository mutantRepository;
     private final DnaSequenceReactiveRepository mutantRepository;
 
     public MutantService(DnaSequenceReactiveRepository mutantRepository) {
@@ -22,7 +22,7 @@ public class MutantService {
         return DnaSequence.create(dna, Clasification.HUMAN)
                 .flatMap(dnaSequence -> dnaSequence.verifyHumanClasification())
                 .onErrorResume(error -> {
-                    System.out.println("Error" + error);
+                    LOG.error((Exception) error);
                     return Mono.error(error);
                 });
 
@@ -32,14 +32,12 @@ public class MutantService {
         return Validate.nullEntityValidate(dnaSequence, "DnaSequence")
                 .switchIfEmpty(dnaSequence.validate())
                 .then(Mono.defer(() -> {
-                            //log.auditWithHttp("Se va a actualizar el cliente");
-                            System.out.println("Se va a guardar la secuencia");
+                            LOG.audit("Se va a guardar la secuencia");
                             return mutantRepository.saveSequence(dnaSequence);
                         }
                 ))
                 .onErrorResume(error -> {
-                    //LOG.error((Exception) error);
-                    System.out.println("Error");
+                    LOG.error((Exception) error);
                     return Mono.error(error);
                 });
     }

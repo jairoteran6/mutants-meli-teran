@@ -12,11 +12,4 @@ public class MutantsApplication {
 		SpringApplication.run(MutantsApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner start(){
-		return args -> {
-			System.out.println("Hello World!");
-		};
-	}
-
 }

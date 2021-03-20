@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class MutantCtr {
+public class MutantCtr extends Ctr{
 
     @Autowired
     MutantService mutanteService;
@@ -36,7 +36,7 @@ public class MutantCtr {
                         }
                 )
                 .onErrorResume(error -> {
-                    System.out.println(error.getMessage());
+                    LOG.error((Exception) error);
                     return Mono.error(error);
                 });
     }
