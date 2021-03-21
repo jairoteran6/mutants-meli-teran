@@ -12,14 +12,12 @@ Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 - Spring boot 2.4.3
 - Mongo DB 4.4.4
 - Jacoco Junit libs
-- Gradle
-
+- Gradle.
 ###Despliegue
 - Heroku Cloud
 - Mongo Atlas en AWS
 - Amazon Api gateway
-- Amazon BeansTalk
-
+- Amazon BeansTalk.
 ###Instrucciones para despliegue local
 - Descargar en instalar jdk 11
 - Descargar Gradle
@@ -32,13 +30,11 @@ Los caracteres permitidos en la cadena a analizar son A, T, G, C.
   * MONGODBURI -> String de coneccion a base de datos Mongo 
     ej: mongodb://{userDB}:{passDB}@clusterdllotest-shard-00-00.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-01.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-02.ekpm1.mongodb.net:27017/{nameDB}?replicaSet=atlas-ghaa6m-shard-0&ssl=true&keepAlive=false&authSource=admin
     
-- Para desplegar el aplicativo ejecutar en la ruta dist/libs/ java -jar mutants-0.0.1.jar 
+- Para desplegar el aplicativo ejecutar en la ruta dist/libs/ java -jar mutants-0.0.1.jar.
 
 ##Uso
-Despues de desplegar la aplicacion tenemos los siguientes servicios disponibles:
-
+Despues de desplegar la aplicacion tenemos los siguientes servicios disponibles.
 ###Api mutant
-
 El primer servicio con el que contamos es el que detecta si de una secuencia de ADN humana es de un mutante o no.
 
 Para probar el funcionamiento tenemos dos escenarios:
@@ -59,7 +55,7 @@ curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type:
 Response: 200 - OK
 ```
 
-#### Opcion 1: Secuencia de un humano
+#### Opcion 2: Secuencia de un humano
 ```
 POST localhost:8080/mutant
 {
@@ -88,8 +84,6 @@ curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type:
 ```
 Response: 400 - Bad Request
 ```
-
-
 ###Api stats
 Este servicio nos permite obtener estadisticas de identificacion de mutantes, estas estadisticas se otienen de de una base de datos donde se almacena cada secuencia identificada y su clasificacion
 ```
@@ -107,11 +101,8 @@ Response 200 - OK
     "ratio": 1
 }
 ```
-
 ##Vistas arquitectonicas
-
 ###Vista Logica
 ![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Logical%20View.png?raw=true "Title")
-
 ###Vista Fisica
 ![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Fisical%20View.png?raw=true "Title")
