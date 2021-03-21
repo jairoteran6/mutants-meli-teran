@@ -55,7 +55,7 @@ public class MutantCtr extends Ctr {
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)
     @ExceptionHandler(HumanException.class)
-    public void humanException() {
+    public void humanException () {
     }
 
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
