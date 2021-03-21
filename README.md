@@ -13,11 +13,13 @@ Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 - Mongo DB 4.4.4
 - Jacoco Junit libs
 - Gradle.
+
 ###Despliegue
 - Heroku Cloud
 - Mongo Atlas en AWS
 - Amazon Api gateway
 - Amazon BeansTalk.
+
 ###Instrucciones para despliegue local
 - Descargar en instalar jdk 11
 - Descargar Gradle
@@ -34,6 +36,7 @@ Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 
 ##Uso
 Despues de desplegar la aplicacion tenemos los siguientes servicios disponibles.
+
 ###Api mutant
 El primer servicio con el que contamos es el que detecta si de una secuencia de ADN humana es de un mutante o no.
 
@@ -102,7 +105,9 @@ Response 200 - OK
 }
 ```
 ##Vistas arquitectonicas
+
 ###Vista Logica
 ![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Logical%20View.png?raw=true "Title")
+
 ###Vista Fisica
 ![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Fisical%20View.png?raw=true "Title")
