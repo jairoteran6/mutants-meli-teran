@@ -111,7 +111,7 @@ Response 200 - OK
 ##Vistas arquitectonicas
 
 ###Vista Logica
-![Alt text](Vistas arquitectonicas/Logical View.png?raw=true "Title")
+![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Logical%20View.png?raw=true "Title")
 
 ###Vista Fisica
-![Alt text](Vistas arquitectonicas/Fisical View.png?raw=true "Title")
+![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Fisical%20View.png?raw=true "Title")
