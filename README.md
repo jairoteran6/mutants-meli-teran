@@ -8,8 +8,8 @@ representada en una Matriz de NxN, en la cual para detectar si es mutante debe c
 Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 
 Servicios expuestos en internet:
-- [servicio mutant](https://api-mutant-meli-teran.herokuapp.com/mutant)
-- [servicio stats](https://api-mutant-meli-teran.herokuapp.com/stats)
+- [servicio mutant](https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/mutant)
+- [servicio stats](https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/stats)
 
 ### Stack tecnologico utilizado
 - Java 11
