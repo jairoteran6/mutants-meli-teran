@@ -7,6 +7,10 @@ representada en una Matriz de NxN, en la cual para detectar si es mutante debe c
 
 Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 
+Servicios expuestos en internet:
+- [servicio mutant](https://api-mutant-meli-teran.herokuapp.com/mutant)
+- [servicio stats](https://api-mutant-meli-teran.herokuapp.com/stats)
+
 ### Stack tecnologico utilizado
 - Java 11
 - Spring boot 2.4.3
@@ -37,7 +41,8 @@ Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 ##Uso
 Despues de desplegar la aplicacion tenemos los siguientes servicios disponibles.
 
-###Api mutant
+Api mutant
+----
 El primer servicio con el que contamos es el que detecta si de una secuencia de ADN humana es de un mutante o no.
 
 Para probar el funcionamiento tenemos dos escenarios:
@@ -87,7 +92,8 @@ curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type:
 ```
 Response: 400 - Bad Request
 ```
-###Api stats
+Api stats
+----
 Este servicio nos permite obtener estadisticas de identificacion de mutantes, estas estadisticas se otienen de de una base de datos donde se almacena cada secuencia identificada y su clasificacion
 ```
 GET localhost:8080/stats
