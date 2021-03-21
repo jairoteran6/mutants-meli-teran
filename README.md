@@ -86,7 +86,7 @@ o
 curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type: application/json' -d '{"dna":["ATYCGA","CAGTGC","TTATGT","AGACGG","GACCTA","TCACTG"]}'
 ```
 ```
-Response: 403 - Forbidden
+Response: 400 - Bad Request
 ```
 
 
