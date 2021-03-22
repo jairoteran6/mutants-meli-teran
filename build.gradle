@@ -2,7 +2,25 @@ plugins {
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'jacoco'
+	id "org.sonarqube" version "2.7"
 }
+
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		xml.destination file("${buildDir}/jacocoxml/jacocoxml.xml")
+		csv.enabled false
+		html.destination file("${buildDir}/jacocoHtml")
+	}
+}
+
+jacocoTestReport.dependsOn(test)
+
+jar.dependsOn(jacocoTestReport)
+
+check.dependsOn jacocoTestReport
 
 group = 'com.teran'
 version = '0.0.1'
@@ -31,8 +49,11 @@ dependencies {
 }
 
 
+
 test {
 	useJUnitPlatform()
+	def envTest = ['APPPORT' : '8080' ,'APPPORT' : 'mongodb://user-mongo-meli:challengemeli2021@clusterdllotest-shard-00-00.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-01.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-02.ekpm1.mongodb.net:27017/mutant?replicaSet=atlas-ghaa6m-shard-0&ssl=true&keepAlive=false&authSource=admin']
+	environment(envTest)
 }
 
 task buildZip(type: Zip) {
@@ -46,3 +67,5 @@ task buildZip(type: Zip) {
 }
 
 build.dependsOn buildZip
+
+
