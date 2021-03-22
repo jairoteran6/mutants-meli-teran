@@ -10,9 +10,7 @@ plugins {
 jacocoTestReport {
 	reports {
 		xml.enabled true
-		xml.destination file("${buildDir}/jacocoxml/jacocoxml.xml")
 		csv.enabled false
-		html.destination file("${buildDir}/jacocoHtml")
 	}
 }
 
