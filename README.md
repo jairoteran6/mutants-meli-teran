@@ -11,6 +11,8 @@ Servicios expuestos en internet:
 - [servicio mutant](https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/mutant)
 - [servicio stats](https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/stats)
 
+NOTA: Esperar porfa un momento las primeras peticiones pueden generar time out por utilizar componentes gratuitos, mientras se aprovisiona la infraestructura y despliegan los componentes
+
 ### Stack tecnologico utilizado
 - Java 11
 - Spring boot 2.4.3
