@@ -8,8 +8,8 @@ representada en una Matriz de NxN, en la cual para detectar si es mutante debe c
 Los caracteres permitidos en la cadena a analizar son A, T, G, C.
 
 Servicios expuestos en internet:
-- [servicio mutant](https://api-mutant-meli-teran.herokuapp.com/mutant)
-- [servicio stats](https://api-mutant-meli-teran.herokuapp.com/stats)
+- [servicio mutant](https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/mutant)
+- [servicio stats](https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/stats)
 
 ### Stack tecnologico utilizado
 - Java 11
@@ -57,7 +57,7 @@ POST localhost:8080/mutant
 ```
 o si queremos usar el servicio desplegado en la nube
 ```
-curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type: application/json' -d '{"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}'
+curl -v -X POST https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/mutant -H 'Content-Type: application/json' -d '{"dna":["ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"]}'
 ```
 ```
 Response: 200 - OK
@@ -72,7 +72,7 @@ POST localhost:8080/mutant
 ```
 o
 ```
-curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type: application/json' -d '{"dna":["ATGCGA","CAGTGC","TTATGT","AGACGG","GACCTA","TCACTG"]}'
+curl -v -X POST https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/mutant -H 'Content-Type: application/json' -d '{"dna":["ATGCGA","CAGTGC","TTATGT","AGACGG","GACCTA","TCACTG"]}'
 ```
 ```
 Response: 403 - Forbidden
@@ -87,7 +87,7 @@ POST localhost:8080/mutant
 ```
 o
 ```
-curl -v -X POST https://api-mutants-teran.herokuapp.com/mutant -H 'Content-Type: application/json' -d '{"dna":["ATYCGA","CAGTGC","TTATGT","AGACGG","GACCTA","TCACTG"]}'
+curl -v -X POST https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/mutant -H 'Content-Type: application/json' -d '{"dna":["ATYCGA","CAGTGC","TTATGT","AGACGG","GACCTA","TCACTG"]}'
 ```
 ```
 Response: 400 - Bad Request
@@ -100,7 +100,7 @@ GET localhost:8080/stats
 ``` 
 o
 ```
-curl -v https://api-mutants-teran.herokuapp.com/stats -H 'Content-Type: application/json'
+curl -v https://1kmz1p41me.execute-api.us-east-1.amazonaws.com/api-mutant-meli/stats -H 'Content-Type: application/json'
 ```
 ```
 Response 200 - OK 
