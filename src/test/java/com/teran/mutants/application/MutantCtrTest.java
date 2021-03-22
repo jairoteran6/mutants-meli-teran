@@ -1,9 +1,11 @@
 package com.teran.mutants.application;
 
+import com.teran.mutants.domain.exception.ExceptionFactory;
 import com.teran.mutants.domain.model.Clasification;
 import com.teran.mutants.domain.model.DnaSequence;
 import com.teran.mutants.domain.model.Stats;
 import com.teran.mutants.domain.service.MutantService;
+import com.teran.mutants.infraestructure.shared.dto.SequenceDTO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,9 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.reactive.function.BodyInserters;
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+
+import java.util.Arrays;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MutantCtr.class)
@@ -32,11 +37,12 @@ public class MutantCtrTest {
     @Autowired
     private WebTestClient webTestClient;
 
+
     @Test
     @DisplayName("test get Stats")
     void testGetStatsOk(){
-        Stats stats = new Stats(25, 25,1.0);
-        Mockito.when(mutantService.getStats()).thenReturn(Mono.just(stats));
+        //Stats stats = new Stats(25, 25,1.0);
+        //Mockito.when(mutantService.getStats()).thenReturn(Mono.just(stats));
 
         webTestClient.get()
                 .uri("/stats")
@@ -49,19 +55,34 @@ public class MutantCtrTest {
     }
 
 
+    @Test
     @DisplayName("test Verify Mutant -> Clasification Mutant true")
     void testVerifyMutantIsMutantTrue(){
 
         String[] sequenceDnaMutantTrue={"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
-        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceDnaMutantTrue,Clasification.MUTANT);
 
-        Mockito.when(mutantService.isMutant(Mockito.any(String[].class)))
-                .thenReturn(Mono.just(Clasification.MUTANT));
+        Mono<DnaSequence> dnaSequenceMutant = DnaSequence.create(sequenceDnaMutantTrue,Clasification.MUTANT);
 
-        Mockito.when(mutantService
-                .guardarDnaSequence(dnaSequence.block()))
-                .thenReturn(dnaSequence);
+        SequenceDTO sequenceDTO = new SequenceDTO();
+        sequenceDTO.setDna(sequenceDnaMutantTrue);
 
+        Mockito.when(mutantService.isMutant(sequenceDnaMutantTrue)).thenReturn(Mono.just(Clasification.MUTANT));
+        Mockito.when(mutantService.guardarDnaSequence(Mockito.any(DnaSequence.class))).thenReturn(dnaSequenceMutant);
+
+
+        webTestClient
+                .post()
+                .uri("/mutant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(sequenceDTO)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(Clasification.class)
+                .isEqualTo(Clasification.MUTANT);
+
+
+        /*
         webTestClient.post()
                 .uri("/mutant")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -70,9 +91,66 @@ public class MutantCtrTest {
                 .expectStatus()
                 .isOk()
                 .expectBody(Clasification.class)
-                .isEqualTo(Clasification.MUTANT);
+                .isEqualTo(Clasification.MUTANT);*/
 
-        Mockito.verify(mutantService,Mockito.times(1)).guardarDnaSequence(dnaSequence.block());
+
+
+    }
+
+    @Test
+    @DisplayName("test Verify Mutant -> Clasification Human true, response error status 403")
+    void testVerifyMutantIsHumanTrue(){
+
+        String[] sequenceDnaHumanTrue={"ATGCGA","CAGTGC","TTATGT","AGCATG","CACCTA","TCACTG"};
+
+        Mono<DnaSequence> dnaSequenceHuman = DnaSequence.create(sequenceDnaHumanTrue,Clasification.HUMAN);
+
+        SequenceDTO sequenceDTO = new SequenceDTO();
+        sequenceDTO.setDna(sequenceDnaHumanTrue);
+
+        Mockito.when(mutantService.isMutant(sequenceDnaHumanTrue)).thenReturn(Mono.just(Clasification.HUMAN));
+        Mockito.when(mutantService.guardarDnaSequence(Mockito.any(DnaSequence.class))).thenReturn(dnaSequenceHuman);
+
+
+        webTestClient
+                .post()
+                .uri("/mutant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(sequenceDTO)
+                .exchange()
+                .expectStatus()
+                .isForbidden();
+                //.expectBody(Clasification.class)
+                //.isEqualTo(Clasification.HUMAN);
+
+
+    }
+
+    @Test
+    @DisplayName("test Verify Mutant -> Error Sequence, response error status 400")
+    void testVerifyMutantBadRequest(){
+
+        String[] sequenceDnaError={"CAGTGC","TTATGT","AGCATG","CACCTA","TCACTG"};
+
+        Mono<DnaSequence> dnaSequenceError = DnaSequence.create(sequenceDnaError,Clasification.HUMAN);
+
+        SequenceDTO sequenceDTO = new SequenceDTO();
+        sequenceDTO.setDna(sequenceDnaError);
+
+        Mockito.when(mutantService.isMutant(sequenceDnaError)).thenReturn(Mono.error(ExceptionFactory.VALUE_NOT_VALID.get(Arrays.toString(sequenceDnaError))));
+        Mockito.when(mutantService.guardarDnaSequence(Mockito.any(DnaSequence.class))).thenReturn(dnaSequenceError);
+
+
+        webTestClient
+                .post()
+                .uri("/mutant")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(sequenceDTO)
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+
+
 
     }
 

@@ -3,8 +3,6 @@ package com.teran.mutants.domain.model;
 import com.teran.mutants.domain.exception.Validate;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +12,7 @@ public class DnaSequence extends Entity {
 
     private String[] dna;
     private Clasification clasification;
-    private static String regexVerify = "(A{4}?|T{4}?|C{4}?|G{4}?)";
+    private static final String REGEX_VERIFY = "(A{4}?|T{4}?|C{4}?|G{4}?)";
 
     public DnaSequence() {
     }
@@ -46,22 +44,22 @@ public class DnaSequence extends Entity {
     }
 
     private Mono<Long> horizontalValidate(final String[] dna) {
-        return countNumberOfMatchesInSequence(dna, regexVerify);
+        return countNumberOfMatchesInSequence(dna, REGEX_VERIFY);
     }
 
     private Mono<Long> verticalValidate(final String[] dna) {
 
         return Mono.just(buildVerticalDnaSequence(dna))
-                .map(dnaBuildVertical -> countNumberOfMatchesInSequence(dnaBuildVertical, regexVerify))
+                .map(dnaBuildVertical -> countNumberOfMatchesInSequence(dnaBuildVertical, REGEX_VERIFY))
                 .flatMap(x -> x);
     }
 
     private Flux<Long> obliqueValidate(final String[] dna) {
         return Flux.merge(Mono.just(buildObliqueDnaSequenceFromTopLeftToBottomRight(dna))
-                        .map(dnaTopToBottom -> countNumberOfMatchesInSequence(dnaTopToBottom, regexVerify))
+                        .map(dnaTopToBottom -> countNumberOfMatchesInSequence(dnaTopToBottom, REGEX_VERIFY))
                         .flatMap(x -> x),
                 Mono.just(buildObliqueDnaSequenceFromBottomLeftToTopRight(dna))
-                        .map(dnaBottomToTop -> countNumberOfMatchesInSequence(dnaBottomToTop, regexVerify))
+                        .map(dnaBottomToTop -> countNumberOfMatchesInSequence(dnaBottomToTop, REGEX_VERIFY))
                         .flatMap(x -> x));
     }
 
@@ -71,7 +69,7 @@ public class DnaSequence extends Entity {
                 acumulador + Pattern.compile(regexValidate).matcher(a).results().count(), Long::sum));
     }
 
-    private static String[] buildVerticalDnaSequence(final String[] dna) {
+    public static String[] buildVerticalDnaSequence(final String[] dna) {
 
         String[] verticalDna = new String[dna.length];
 
@@ -83,7 +81,7 @@ public class DnaSequence extends Entity {
             verticalDna[row] = verticalItem.toString();
         }
 
-        LOG.audit(String.format("Vertical array %s", verticalDna.toString()));
+        LOG.audit(String.format("Vertical array %s", Arrays.toString(verticalDna)));
         return verticalDna;
     }
 

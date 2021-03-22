@@ -30,7 +30,7 @@ public class Validate {
 
     public static Mono<Void> validateCaractersInSequence(String[] dna, String field){
         return Mono.just(Arrays.stream(dna).anyMatch(a -> patronExcluding.matcher(a).find())).filter(b -> b==false)
-                .switchIfEmpty(Mono.error(ExceptionFactory.VALUE_NOT_VALID.get(dna)))
+                .switchIfEmpty(Mono.error(ExceptionFactory.VALUE_NOT_VALID.get(field)))
                 .then(Mono.empty());
 
     }
@@ -39,7 +39,7 @@ public class Validate {
         return Mono.just(Arrays.stream(dna)
                 .allMatch(a -> dna.length == a.length()))
                 .filter(b -> b==true)
-                .switchIfEmpty(Mono.error(ExceptionFactory.VALUE_NOT_VALID.get(dna)))
+                .switchIfEmpty(Mono.error(ExceptionFactory.VALUE_NOT_VALID.get(field)))
                 .then(Mono.empty());
 
     }
