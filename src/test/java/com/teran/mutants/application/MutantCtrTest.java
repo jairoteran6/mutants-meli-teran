@@ -29,7 +29,7 @@ import java.util.Arrays;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MutantCtr.class)
-public class MutantCtrTest {
+class MutantCtrTest {
 
     @MockBean
     private MutantService mutantService;
@@ -41,8 +41,6 @@ public class MutantCtrTest {
     @Test
     @DisplayName("test get Stats")
     void testGetStatsOk(){
-        //Stats stats = new Stats(25, 25,1.0);
-        //Mockito.when(mutantService.getStats()).thenReturn(Mono.just(stats));
 
         webTestClient.get()
                 .uri("/stats")
@@ -81,20 +79,6 @@ public class MutantCtrTest {
                 .expectBody(Clasification.class)
                 .isEqualTo(Clasification.MUTANT);
 
-
-        /*
-        webTestClient.post()
-                .uri("/mutant")
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(BodyInserters.fromObject(sequenceDnaMutantTrue))
-                .exchange()
-                .expectStatus()
-                .isOk()
-                .expectBody(Clasification.class)
-                .isEqualTo(Clasification.MUTANT);*/
-
-
-
     }
 
     @Test
@@ -120,8 +104,7 @@ public class MutantCtrTest {
                 .exchange()
                 .expectStatus()
                 .isForbidden();
-                //.expectBody(Clasification.class)
-                //.isEqualTo(Clasification.HUMAN);
+
 
 
     }
