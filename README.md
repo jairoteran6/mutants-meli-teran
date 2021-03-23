@@ -20,13 +20,13 @@ NOTA: Esperar porfa un momento las primeras peticiones pueden generar time out p
 - Jacoco Junit libs
 - Gradle.
 
-###Despliegue
+### Despliegue
 - Heroku Cloud
 - Mongo Atlas en AWS
 - Amazon Api gateway
 - Amazon BeansTalk.
 
-###Instrucciones para despliegue local
+### Instrucciones para despliegue local
 - Descargar en instalar jdk 11
 - Descargar Gradle
 - Instalar mongodb o utilizar algun servicio en la nube como mongo atlas o cosmos DB
@@ -40,7 +40,7 @@ NOTA: Esperar porfa un momento las primeras peticiones pueden generar time out p
     
 - Para desplegar el aplicativo ejecutar en la ruta dist/libs/ java -jar mutants-0.0.1.jar.
 
-##Uso
+## Uso
 Despues de desplegar la aplicacion tenemos los siguientes servicios disponibles.
 
 Api mutant
@@ -112,10 +112,10 @@ Response 200 - OK
     "ratio": 1
 }
 ```
-##Vistas arquitectonicas
+## Vistas arquitectonicas
 
-###Vista Logica
-![Alt text](https://github.com/jairoteran6/mutants-meli-teran/blob/master/Vistas%20arquitectonicas/Logical%20View.png?raw=true)
+### Vista Logica
+![Alt text](https://raw.githubusercontent.com/jairoteran6/mutants-meli-teran/master/Vistas%20arquitectonicas/Logical%20View.png)
 
-###Vista Fisica
+### Vista Fisica
 ![Alt text](https://raw.githubusercontent.com/jairoteran6/mutants-meli-teran/master/Vistas%20arquitectonicas/Fisical%20View.png)
