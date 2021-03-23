@@ -50,7 +50,7 @@ dependencies {
 
 test {
 	useJUnitPlatform()
-	def envTest = ['APPPORT' : '8080' ,'APPPORT' : 'mongodb://user-mongo-meli:challengemeli2021@clusterdllotest-shard-00-00.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-01.ekpm1.mongodb.net:27017,clusterdllotest-shard-00-02.ekpm1.mongodb.net:27017/mutant?replicaSet=atlas-ghaa6m-shard-0&ssl=true&keepAlive=false&authSource=admin']
+	def envTest = ['APPPORT' : '8080' ,'APPPORT' : 'mongodb://user-mongo-meli:challengemeli2021@sandbox-shard-00-00.rgvhn.mongodb.net:27017,sandbox-shard-00-01.rgvhn.mongodb.net:27017,sandbox-shard-00-02.rgvhn.mongodb.net:27017/mutant?replicaSet=atlas-l7tpc0-shard-0&ssl=true&keepAlive=false&authSource=admin']
 	environment(envTest)
 }
 
