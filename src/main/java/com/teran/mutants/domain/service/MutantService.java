@@ -12,10 +12,10 @@ import reactor.core.publisher.Mono;
 
 public class MutantService extends Service{
 
-    private final DnaSequenceReactiveRepository mutantRepository;
+    private final DnaSequenceReactiveRepository dnaSequenceReactiveRepository;
 
-    public MutantService(DnaSequenceReactiveRepository mutantRepository) {
-        this.mutantRepository = mutantRepository;
+    public MutantService(DnaSequenceReactiveRepository dnaSequenceReactiveRepository) {
+        this.dnaSequenceReactiveRepository = dnaSequenceReactiveRepository;
     }
 
     public Mono<Clasification> isMutant(String[] dna) {
@@ -33,7 +33,7 @@ public class MutantService extends Service{
                 .switchIfEmpty(dnaSequence.validate())
                 .then(Mono.defer(() -> {
                             LOG.audit("Se va a guardar la secuencia");
-                            return mutantRepository.saveSequence(dnaSequence);
+                            return dnaSequenceReactiveRepository.saveSequence(dnaSequence);
                         }
                 ))
                 .onErrorResume(error -> {
@@ -43,6 +43,6 @@ public class MutantService extends Service{
     }
 
     public Mono<Stats> getStats(){
-        return mutantRepository.getDnaSequenceStats();
+        return dnaSequenceReactiveRepository.getDnaSequenceStats();
     }
 }
