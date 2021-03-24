@@ -13,13 +13,11 @@ public class Validate {
 
     private static String regexExcluding = "[^ATCG]";
 
-
     private static Pattern patronExcluding = Pattern.compile(regexExcluding);
 
-    public static Mono<Void> nullOrEmptyValidate(String value, String field) {
-        return Mono.just(value).filter(it-> (value!=null && !value.isEmpty()))
-                .switchIfEmpty(Mono.error(ExceptionFactory.NULL_OR_EMPTY.get(field)))
-                .then(Mono.empty());
+
+    private Validate(){
+        throw new IllegalStateException("Validate class");
     }
 
     public static Mono<Void> nullEntityValidate(Object value, String field) {

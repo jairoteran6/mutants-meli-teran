@@ -39,8 +39,8 @@ class DnaSequenceTest {
     @Test
     @DisplayName("test validate Dna Sequence error caracteres")
     void testValidateErrorCaracters(){
-        String[] sequenceOk = {"ATGCG2","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
-        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceOk,Clasification.HUMAN);
+        String[] sequenceErrorCaracters = {"ATGCG2","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
+        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceErrorCaracters,Clasification.HUMAN);
         StepVerifier.create(dnaSequence.map(seq -> seq.validate()))
                 .verifyError();
 
@@ -49,8 +49,8 @@ class DnaSequenceTest {
     @Test
     @DisplayName("test validate Dna Sequence error Estructure")
     void testValidateErrorEstructure(){
-        String[] sequenceOk = {"CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
-        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceOk,Clasification.HUMAN);
+        String[] sequenceErrorEstructure = {"CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
+        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceErrorEstructure,Clasification.HUMAN);
         StepVerifier.create(dnaSequence.map(seq -> seq.validate()))
                 .verifyError();
 
@@ -59,8 +59,8 @@ class DnaSequenceTest {
     @Test
     @DisplayName("test verifyHumanClasification Mutant")
     void testVerifyHumanClasificationMutant(){
-        String[] sequenceOk = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
-        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceOk,Clasification.HUMAN);
+        String[] sequenceMutant = {"ATGCGA","CAGTGC","TTATGT","AGAAGG","CCCCTA","TCACTG"};
+        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceMutant,Clasification.HUMAN);
         StepVerifier.create(dnaSequence.map(seq -> seq.verifyHumanClasification()))
                 .consumeNextWith(s->{
                     Assertions.assertEquals(s.block(),Clasification.MUTANT);
@@ -72,8 +72,8 @@ class DnaSequenceTest {
     @Test
     @DisplayName("test verifyHumanClasification Human")
     void testVerifyHumanClasificationHuman(){
-        String[] sequenceOk = {"ATGCGA","CAGTGC","TTATGT","AGCATG","CACCTA","TCACTG"};
-        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceOk,Clasification.HUMAN);
+        String[] sequenceHuman = {"ATGCGA","CAGTGC","TTATGT","AGCATG","CACCTA","TCACTG"};
+        Mono<DnaSequence> dnaSequence = DnaSequence.create(sequenceHuman,Clasification.HUMAN);
         StepVerifier.create(dnaSequence.map(seq -> seq.verifyHumanClasification()))
                 .consumeNextWith(s->{
                     Assertions.assertEquals(s.block(),Clasification.HUMAN);
