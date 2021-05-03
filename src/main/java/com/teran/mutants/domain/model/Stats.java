@@ -1,6 +1,5 @@
 package com.teran.mutants.domain.model;
 
-import reactor.core.publisher.Mono;
 
 public class Stats {
 
